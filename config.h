@@ -65,8 +65,35 @@ static const char unknown_str[] = "n/a";
  * wifi_perc           WiFi signal in percent          interface name (wlan0)
  */
 static const struct arg args[] = {
-	/* function format          argument turn signal */
-	{ datetime, "%s",           "%F %T", 1,   -1 },
+	/* function         format          argument        turn        signal */
+
+	/* network          SSID perc                                      */
+	{ wifi_essid,       "%s ",          "wlp4s0",       16,         -1 },
+	{ wifi_perc,        "%s%% | ",      "wlp4s0",       8,          -1 },
+
+	/* CPU              CPU freq/perc                                  */
+	{ cpu_freq,         "CPU %s/",      NULL,           1,          -1 },
+	{ cpu_perc,         "%s%% | ",      NULL,           1,          -1 },
+
+	/* memory           MEM ram:swap                                   */
+	{ ram_perc,         "MEM %s%%:",    NULL,           2,          -1 },
+	{ swap_perc,        "%s%% | ",      NULL,           8,          -1 },
+
+	/* disk             DISK perc                                      */
+	{ disk_perc,        "DISK %s%% | ", "/",            32,         -1 },
+
+	/* volume           VOL perc                                       */
+	{ run_command,      "VOL %s | ",    "sl-volume",    0,          1  },
+
+	/* input method     FCITX state                                    */
+	{ run_command,      "FCITX %s | ",  "sl-fcitx",     0,          2  },
+
+	/* battery          BAT perc<nospace>state                         */
+	{ battery_perc,     "BAT %s%%",     "BAT1",         16,         -1 },
+	{ battery_state,    "%s | ",        "BAT1",         16,         -1 },
+
+	/* datetime         YYYY-MM-DD HH-MM-SS                            */
+	{ datetime,         "%s",           "%F %T",        1,          -1 },
 };
 
 /* maximum output string length */
