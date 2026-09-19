@@ -21,6 +21,11 @@ static const char tlp_mode_cmd[] =
 	"tlp-stat -s 2>/dev/null | "
 	"sed -n 's/^Mode[[:space:]]*=[[:space:]]*//p'";
 
+/* number of packages with available updates */
+static const char apt_updates_cmd[] =
+	"LC_ALL=C apt list --upgradable 2>/dev/null | "
+	"awk 'NR > 1 {n++} END {print n+0}'";
+
 /*
  * Dynamic Nerd Font icons.
  *
@@ -271,18 +276,19 @@ volume_display(const char *cmd)
 static const struct arg args[] = {
 	/* function         format          argument        turn        signal */
 
-	{ cpu_freq,         "| 󰻠 %s/",      NULL,           1,          -1 },
-	{ cpu_perc,         "%s%% ",        NULL,           1,          -1 },
-	{ ram_perc,         "󰍛 %s%%:",      NULL,           2,          -1 },
-	{ swap_perc,        "%s%% ",        NULL,           8,          -1 },
-	{ temp,             "󰔄 %s ",        temp_sensor,    1,          -1 },
-	{ run_command,      "󰐥 %s | ",      tlp_mode_cmd,   32,         -1 },
-	{ disk_perc,        "󰋊 %s%% ",      "/",            32,         -1 },
-	{ battery_display,  "%s ",          "BAT1",         16,         -1 },
-	{ volume_display,   "%s ",          "sl-volume",    0,          1  },
-	{ wifi_display,     "%s | ",        "wlp4s0",       8,          -1 },
-	{ run_command,      "󰌌 %s | ",      "sl-fcitx",     0,          2  },
-	{ datetime_icon,    "%s |",         NULL,           1,          -1 },
+	{ cpu_freq,         "| 󰻠 %s/",      NULL,            1,          -1 },
+	{ cpu_perc,         "%s%% ",        NULL,            1,          -1 },
+	{ ram_perc,         "󰍛 %s%%:",      NULL,            2,          -1 },
+	{ swap_perc,        "%s%% ",        NULL,            8,          -1 },
+	{ temp,             "󰔄 %s ",        temp_sensor,     1,          -1 },
+	{ run_command,      "󰐥 %s | ",      tlp_mode_cmd,    32,         -1 },
+	{ disk_perc,        "󰋊 %s%% ",      "/",             32,         -1 },
+	{ battery_display,  "%s ",          "BAT1",          16,         -1 },
+	{ volume_display,   "%s ",          "sl-volume",     0,          1  },
+	{ wifi_display,     "%s | ",        "wlp4s0",        8,          -1 },
+	{ run_command,      "󰏗 %s ",        apt_updates_cmd, 1024,       -1 },
+	{ run_command,      "󰌌 %s | ",      "sl-fcitx",      0,          2  },
+	{ datetime_icon,    "%s |",         NULL,            1,          -1 },
 };
 
 /* maximum output string length */
