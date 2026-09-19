@@ -16,6 +16,11 @@ static const char unknown_str[] = "n/a";
 /* temperature sensor */
 static const char temp_sensor[] = "/sys/class/hwmon/hwmon7/temp1_input";
 
+/* current TLP power mode */
+static const char tlp_mode_cmd[] =
+	"tlp-stat -s 2>/dev/null | "
+	"sed -n 's/^Mode[[:space:]]*=[[:space:]]*//p'";
+
 /*
  * Dynamic Nerd Font icons.
  *
@@ -270,7 +275,8 @@ static const struct arg args[] = {
 	{ cpu_perc,         "%s%% ",        NULL,           1,          -1 },
 	{ ram_perc,         "󰍛 %s%%:",      NULL,           2,          -1 },
 	{ swap_perc,        "%s%% ",        NULL,           8,          -1 },
-	{ temp,             "󰔄 %s | ",      temp_sensor,    1,          -1 },
+	{ temp,             "󰔄 %s ",        temp_sensor,    1,          -1 },
+	{ run_command,      "󰐥 %s | ",      tlp_mode_cmd,   32,         -1 },
 	{ disk_perc,        "󰋊 %s%% ",      "/",            32,         -1 },
 	{ battery_display,  "%s ",          "BAT1",         16,         -1 },
 	{ volume_display,   "%s ",          "sl-volume",    0,          1  },
