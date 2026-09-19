@@ -141,6 +141,7 @@ main(int argc, char *argv[])
 			intspec.tv_nsec = (interval % 1000) * 1E6;
 			difftimespec(&wait, &intspec, &diff);
 
+			ret = 0;
 			while(wait.tv_sec >= 0 &&
 			      (ret = nanosleep(&wait, &wait)) < 0 &&
 			      errno == EINTR && !done) {
